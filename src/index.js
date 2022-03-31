@@ -1,16 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import Login from './login/login';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './reducers/rootReducer';
+import setToken from './utils/setToken';
+import { setCurrentUser } from './actions/actions';
+import jwtDecode from 'jwt-decode';
+import Routes from './routes';
+//创建全局管理 store
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, thunk)));
+
+if (localStorage.jwtToken) {
+  setToken(localStorage.getItem('jwtToken'));
+  store.dispatch(setCurrentUser(jwtDecode(localStorage.getItem('jwtToken'))));
+}
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <Router>
+      <Routes />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+export default store;

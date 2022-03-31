@@ -1,0 +1,22 @@
+.bg{
+    background: linear-gradient(to top, #1c92d2, #f2fcfe); 
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.titleStyle{
+    position: absolute;
+    top: 20vh;
+}
+.tabStyle{
+    /* box-shadow: 18px 18px 10px #aaaaaa; */
+}
+.formStyle{
+    background-color: #fff;
+    padding: 0px;
+}
+.rowStyle{
+    margin-top:10px;
+}
