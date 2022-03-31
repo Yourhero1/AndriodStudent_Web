@@ -3,7 +3,7 @@
 # dependencies
 /node_modules
 /config
-/script
+/scripts
 /server/node_modules
 /src/public
 /.pnp
