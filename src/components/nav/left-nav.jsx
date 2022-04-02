@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Nav, Avatar, Dropdown, Layout, Button } from '@douyinfe/semi-ui';
 import {  IconUserGroup, IconEdit } from '@douyinfe/semi-icons';
-
+import { connect } from 'react-redux'
+import * as actions from '../../actions/actions'
+import { bindActionCreators } from 'redux'
+import { withRouter } from "react-router-dom";
+import store from '../../index';
 const items = [
     {
         itemKey: 'android-describe',
@@ -180,19 +184,35 @@ const items = [
         ]
     }
 ]
+
 // 首部导航条左侧内容
 const LeftNav = (props) => {
+    const { auth } = store.getState();
+    const { user } = auth;
+    const username = user.username;
+    const handleClick = (e) =>{
+        console.log(e.itemKey);
+        props.actions.handleNav({username,navName:e.itemKey}).then((res)=>{
+            console.log('埋点数据上传成功！')
+        }, err =>{
+            console.log('埋点数据上床失败！')
+        })
+    }
     return (
         <Nav
             limitIndent={false}
             bodyStyle={{ height: '80vh'}}
             items={items}
             onSelect={key => props.handleState(key.itemKey)}
+            onClick={handleClick}
             footer={{
                 collapseButton: true,
             }}
         />
     );
 }
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(actions, dispatch)
+})
 
-export default LeftNav;
+export default connect(state => state, mapDispatchToProps)(withRouter(LeftNav));

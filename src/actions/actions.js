@@ -57,3 +57,18 @@ export const handleRating = rating => dispatch =>{
 export const getRating = () => dispatch =>{
     return axios.get('api/rating/getRating')
 }
+
+// 提交评论
+export const handleDescription = description => dispatch =>{
+    return axios.post('api/description',description);
+}
+
+// 获取评论列表
+export const getDescription = () => dispatch =>{
+    return axios.get('api/description/getDescription')
+}
+
+// 提交导航的点击次数
+export const handleNav = value => dispatch => {
+    return axios.post('api/nav',value);
+}

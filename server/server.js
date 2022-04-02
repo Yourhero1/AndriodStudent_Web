@@ -2,6 +2,8 @@ const express = require('express')
 const signUp = require('./routers/signUp')
 const login = require('./routers/login')
 const rating = require('./routers/rating')
+const description = require('./routers/description')
+const nav = require('./routers/nav')
 const bodyParser = require('body-parser')
 
 const mongoose = require('mongoose'); //启动mongodb
@@ -20,5 +22,9 @@ app.use('/api/signUp',signUp);
 app.use('/api/login',login);
 
 app.use('/api/rating',rating);
+
+app.use('/api/description',description);
+
+app.use('/api/nav',nav);
 
 app.listen(3031,()=> console.log('服务器启动了...'))

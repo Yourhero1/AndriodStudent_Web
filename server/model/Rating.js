@@ -8,10 +8,6 @@ const ratingSchema = new mongoose.Schema({
     rating: {
       type: Number,
       trim: true
-    },
-    description:{
-        type:String,
-        trim: true
     }
   })
   const Rating = mongoose.model('Rating',ratingSchema)

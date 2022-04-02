@@ -12,7 +12,7 @@ const LoginForm = ({ props, isLogin }) => {
             props.actions.loginAction({ username, password, role })
                 .then(res => {// 登入成功
                     Notification.success({ content: '登入成功！', duration: 3 })
-                    props.history.push('/home')
+                    role ==='teacher' ?props.history.push('/teacherHome'):props.history.push('/home')
                 }, ({ response }) => {//登入失败
                     Notification.error({ content: '登入失败！', duration: 3 })
                 })

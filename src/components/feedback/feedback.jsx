@@ -12,21 +12,27 @@ const Feedback = (props) => {
     const { Text } = Typography;
     const { TextArea, Rating } = Form;
     const [visible, setVisible] = useState(false);
+    const [visibleRating, setVisibleRating] = useState(false);
     const [sidebar, setSidebar] = useState(false);
     const [formApi, setFormApi] = useState();
-    const [dataList,setDataList] = useState([]);
+    const [formApiRating, setFormApiRating] = useState();
+    const [dataList, setDataList] = useState([]);
     const { auth } = store.getState();
     const { user } = auth;
     const username = user.username;
+
     const showDialog = () => {
         setVisible(true);
+    }
+    const showDialogRating = ()=> {
+        setVisibleRating(true);
     }
 
     const handleOk = () => {
         let value = formApi.getValues();
-        const { rating, description } = value;
+        const { description } = value;
         console.log(username);
-        props.actions.handleRating({ username, rating, description }).then(
+        props.actions.handleDescription({ username,  description }).then(
             (res) => {
                 console.log(res);
                 Notification.success({ content: '提交成功！', duration: 3 })
@@ -34,22 +40,57 @@ const Feedback = (props) => {
         console.log(formApi.getValues());
         setVisible(false);
     }
+
+    const handleOkRating = () =>{
+        let value = formApiRating.getValues();
+        const { rating } = value;
+        console.log(username);
+        props.actions.handleRating({ username, rating}).then(
+            (res) => {
+                console.log(res);
+                Notification.success({ content: '提交成功！', duration: 3 })
+            }, err => console.log(err))
+        setVisibleRating(false);
+    }
+
     const handleCancel = () => {
         setVisible(false);
     }
+
+    const handleCancelRating = () =>{
+        setVisibleRating(false);
+    }
+
     const handleSidelbar = () => {
-        props.actions.getRating().then(res => {
-            setDataList(res);
+        props.actions.getDescription().then(res => {
+            setDataList(res.data);
+            setSidebar(!sidebar);
         }, err => {
             Notification.error({ content: '获取数据失败！', duration: 3 });
         })
-        setSidebar(!sidebar);
+    }
+
+    const getFormApiRating = (e) => {
+        setFormApiRating(e);
     }
     const getFormApi = (e) => {
         setFormApi(e)
     }
     return (
         <div className={style.main}>
+            <Button theme='solid' type='primary' style={{ marginRight: 8 }} onClick={showDialogRating}>{'提交评分'}</Button>
+            <Modal
+                title="评分"
+                visible={visibleRating}
+                onOk={handleOkRating}
+                onCancel={handleCancelRating}
+            >
+                <Form getFormApi={getFormApiRating}>
+                    <Row>
+                        <Rating field="rating" label="评分(Rating)" defaultValue={5} />
+                    </Row>
+                </Form>
+            </Modal>
             <Button theme='solid' type='primary' style={{ marginRight: 8 }} onClick={showDialog}>{'提交评价'}</Button>
             <Modal
                 title="评价"
@@ -58,9 +99,6 @@ const Feedback = (props) => {
                 onCancel={handleCancel}
             >
                 <Form getFormApi={getFormApi}>
-                    <Row>
-                        <Rating field="rating" label="评分(Rating)" defaultValue={5} />
-                    </Row>
                     <Row>
                         <TextArea field='description'
                             label="讨论信息"

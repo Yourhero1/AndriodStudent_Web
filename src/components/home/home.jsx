@@ -14,14 +14,13 @@ import DescribeTechnology from '../content/describe_technology';
 import DescribeFeature from '../content/describe_feature';
 import AndroidEnv from '../content/android_env';
 import FlutterEnv from '../content/flutter_env';
-
 const Home = (props) => {
     const { Header, Footer, Sider, Content } = Layout;
     const [navValue, setNavValue] = useState('describe_technology');
     const handleState = (value) => {
         setNavValue(value);
     }
-    console.log(navValue);
+    
     let PageContent = <DescribeTechnology/>;
     switch (navValue) {
         case 'describe_technology': PageContent = ()=><DescribeTechnology/>;break;
@@ -35,15 +34,13 @@ const Home = (props) => {
         default:PageContent = ()=><Empty/>;break;
     }
 
-
-
     return (
         <Layout className="components-layout-demo">
-            <TopNav />
+            <TopNav props={props} />
             <Layout>
                 <Sider><LeftNav handleState={handleState} /></Sider>
                 <Content>
-                    <PageContent />
+                    <PageContent navValue={navValue}/>
                     <Feedback/>
                 </Content>
             </Layout>

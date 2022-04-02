@@ -4,16 +4,19 @@ import { InfiniteLoader, AutoSizer } from 'react-virtualized';
 import VList from 'react-virtualized/dist/commonjs/List';
 
 class VirtualizedScroll extends React.Component {
-    constructor() {
-        super();
-
-        const dataList = [];
-        for (let i = 0; i < 50; i++) {
-            dataList.push({
-                color: 'blue',
-                title: `学生编号 ${i}`,
-            });
-        }
+    constructor(props) {
+        super(props);
+        // console.log(props)
+        // console.log(props.dataList);
+        // debugger;
+        const dataList = props.dataList;
+        // const dataList = [];
+        // for (let i = 0; i < 50; i++) {
+        //     dataList.push({
+        //         color: 'blue',
+        //         title: `学生编号 ${i}`,
+        //     });
+        // }
         this.data = dataList;
 
         this.fetchData = (startIndex, stopIndex) => {
@@ -83,14 +86,12 @@ class VirtualizedScroll extends React.Component {
             <List.Item
                 key={key}
                 style={style}
-                header={<Avatar color={item.color}>学生</Avatar>}
+                header={<Avatar color="blue">学生</Avatar>}
                 main={
                     <div>
-                        <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.title}</span>
+                        <span style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item.username}</span>
                         <p style={{ color: 'var(--semi-color-text-2)', margin: '4px 0' }}>
-                            Semi Design
-                            设计系统包含设计语言以及一整套可复用的前端组件，帮助设计师与开发者更容易地打造高质量的、用户体验一致的、符合设计规范的
-                            Web 应用。
+                           {item.description}
                         </p>
                     </div>
                 }
