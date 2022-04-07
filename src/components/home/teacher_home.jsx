@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Layout} from '@douyinfe/semi-ui';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
@@ -9,16 +9,32 @@ import store from '../../index'
 import LeftNav from '../teacherNav/left_nav';
 import TopNav from '../teacherNav/top_nav';
 
+import RatingEcharts from '../echarts/rating_echarts'
+import DescriptionEcharts from '../echarts/description_echarts'
+import NumberEcharts from '../echarts/number_echarts'
 const TeacherHome = (props) => {
-    const { Header, Footer, Sider, Content } = Layout;
+    const { Sider, Content } = Layout;
+    const [navValue, setNavValue] = useState('konwledge_description');
+    const handleState = (value) => {
+        console.log('测试数据！')
+        console.log(value);
+        setNavValue(value);
+    }
+    let Echarts;
+    switch(navValue){
+        case 'konwledge_description': Echarts = ()=><DescriptionEcharts  props={props} />;break;
+        case 'konwledge_rating': Echarts =()=> <RatingEcharts  props={props}/>;break;
+        case 'konwledge_number': Echarts = ()=> <NumberEcharts props={props} />;break;
+        default:Echarts = ()=><Empty/>;break;
+    }
 
     return (
         <Layout className="components-layout-demo">
             <TopNav props={props}/>
             <Layout>
-                <Sider><LeftNav /></Sider>
+                <Sider><LeftNav handleState={handleState} /></Sider>
                 <Content>
-                    <Empty/>
+                 <Echarts/>
                 </Content>
             </Layout>
         </Layout>

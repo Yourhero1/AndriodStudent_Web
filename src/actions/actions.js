@@ -72,3 +72,8 @@ export const getDescription = () => dispatch =>{
 export const handleNav = value => dispatch => {
     return axios.post('api/nav',value);
 }
+
+// 获取导航的点击次数
+export const getNavNumber = () => dispatch =>{
+    return axios.get('api/nav/getNav')
+}

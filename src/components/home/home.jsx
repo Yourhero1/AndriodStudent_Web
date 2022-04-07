@@ -14,10 +14,12 @@ import DescribeTechnology from '../content/describe_technology';
 import DescribeFeature from '../content/describe_feature';
 import AndroidEnv from '../content/android_env';
 import FlutterEnv from '../content/flutter_env';
+//import PageContent from './PageContent'
 const Home = (props) => {
     const { Header, Footer, Sider, Content } = Layout;
     const [navValue, setNavValue] = useState('describe_technology');
     const handleState = (value) => {
+        console.log('测试数据！')
         setNavValue(value);
     }
     
@@ -41,7 +43,7 @@ const Home = (props) => {
                 <Sider><LeftNav handleState={handleState} /></Sider>
                 <Content>
                     <PageContent navValue={navValue}/>
-                    <Feedback/>
+                    <Feedback navValue={navValue}/>
                 </Content>
             </Layout>
         </Layout>

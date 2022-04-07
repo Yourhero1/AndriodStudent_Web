@@ -8,7 +8,11 @@ const ratingSchema = new mongoose.Schema({
     rating: {
       type: Number,
       trim: true
-    }
+    },
+    navValue: {
+      type:String,
+      trim: true
+    },
   })
   const Rating = mongoose.model('Rating',ratingSchema)
   module.exports = Rating;

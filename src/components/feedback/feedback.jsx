@@ -20,7 +20,8 @@ const Feedback = (props) => {
     const { auth } = store.getState();
     const { user } = auth;
     const username = user.username;
-
+    const navValue = props.navValue;
+    console.log('navValue',navValue);
     const showDialog = () => {
         setVisible(true);
     }
@@ -32,7 +33,7 @@ const Feedback = (props) => {
         let value = formApi.getValues();
         const { description } = value;
         console.log(username);
-        props.actions.handleDescription({ username,  description }).then(
+        props.actions.handleDescription({ username,  description,navValue }).then(
             (res) => {
                 console.log(res);
                 Notification.success({ content: '提交成功！', duration: 3 })
@@ -45,7 +46,7 @@ const Feedback = (props) => {
         let value = formApiRating.getValues();
         const { rating } = value;
         console.log(username);
-        props.actions.handleRating({ username, rating}).then(
+        props.actions.handleRating({ username, rating,navValue}).then(
             (res) => {
                 console.log(res);
                 Notification.success({ content: '提交成功！', duration: 3 })

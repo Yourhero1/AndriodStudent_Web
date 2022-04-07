@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Avatar, Dropdown, Layout, Button } from '@douyinfe/semi-ui';
-import {  IconUserGroup, IconEdit } from '@douyinfe/semi-icons';
+import { IconUserGroup, IconEdit } from '@douyinfe/semi-icons';
 import { connect } from 'react-redux'
 import * as actions from '../../actions/actions'
 import { bindActionCreators } from 'redux'
@@ -190,20 +190,20 @@ const LeftNav = (props) => {
     const { auth } = store.getState();
     const { user } = auth;
     const username = user.username;
-    const handleClick = (e) =>{
-        console.log(e.itemKey);
-        props.actions.handleNav({username,navName:e.itemKey}).then((res)=>{
+    const handleClick = (e) => {
+        // console.log(e.itemKey);
+        props.handleState(e.itemKey)
+        props.actions.handleNav({ username, navName: e.itemKey }).then((res) => {
             console.log('埋点数据上传成功！')
-        }, err =>{
+        }, err => {
             console.log('埋点数据上床失败！')
         })
     }
     return (
         <Nav
             limitIndent={false}
-            bodyStyle={{ height: '80vh'}}
+            bodyStyle={{ height: '80vh' }}
             items={items}
-            onSelect={key => props.handleState(key.itemKey)}
             onClick={handleClick}
             footer={{
                 collapseButton: true,

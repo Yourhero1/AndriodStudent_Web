@@ -2,31 +2,34 @@ import React from 'react';
 import { Nav, Avatar, Dropdown, Layout, Button } from '@douyinfe/semi-ui';
 import { IconUserGroup, IconEdit } from '@douyinfe/semi-icons';
 // 首部导航条左侧内容
-const LeftNav = () => {
+const LeftNav = (props) => {
     const items = [
         {
-            itemKey: 'konwledge-number',
-            text: '知识点观看次数',
+            itemKey: 'konwledge_description',
+            text: '知识点讨论次数',
             icon: <IconUserGroup />,
         },
         {
-            itemKey: 'konwledge-rating',
+            itemKey: 'konwledge_rating',
             text: '知识点评分',
             icon: <IconUserGroup />,
         },
         {
-            itemKey: 'konwledge-description',
-            text: '知识点讨论次数',
+            itemKey: 'konwledge_number',
+            text: '知识点观看次数',
             icon: <IconUserGroup />,
         },
+        
     ]
+    const handleClick = (e)=>{
+        props.handleState(e.itemKey)
+    }
     return (
         <Nav
             limitIndent={false}
             bodyStyle={{ height: '80vh' }}
             items={items}
-            // onSelect={key => props.handleState(key.itemKey)}
-            //onClick={handleClick}
+            onClick={handleClick}
             footer={{
                 collapseButton: true,
             }}
