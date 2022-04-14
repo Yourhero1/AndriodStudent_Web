@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import _ from 'lodash';
 import { echartData,descriptionList } from '../../constants/constants';
+import DescriptionTable from './description_table'
+let data;
 const DescriptionEcharts = ({ props }) => {
     const [dataList,setDataList] = useState();
     useEffect(()=>{
         let valueList = _.cloneDeep(descriptionList);
         props.actions.getDescription().then((res)=>{
-            const data =res.data;
+            data =res.data;
             data.forEach(e =>{
                 valueList[e.navValue]?.push(e.description);
             })
@@ -23,7 +25,6 @@ const DescriptionEcharts = ({ props }) => {
         size.push(e.length);
     })
     }
-    
     const options = {
         title:{
             text:'知识点讨论次数'
@@ -49,6 +50,7 @@ const DescriptionEcharts = ({ props }) => {
 
     return <div>
         <ReactECharts option={options} />
+        <DescriptionTable data={data} />
     </div>;
 };
 

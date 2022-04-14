@@ -19,6 +19,16 @@ const LeftNav = (props) => {
             text: '知识点观看次数',
             icon: <IconUserGroup />,
         },
+        {
+            itemKey: 'student_mg',
+            text: '学生管理',
+            icon: <IconUserGroup />,
+        },
+        {
+            itemKey: 'student_time',
+            text: '学生在线时长',
+            icon: <IconUserGroup />,
+        }
         
     ]
     const handleClick = (e)=>{

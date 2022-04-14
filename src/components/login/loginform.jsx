@@ -34,7 +34,6 @@ const LoginForm = ({ props, isLogin }) => {
                     .then(res => {
                         if (res.data.success) {// 后台验证成功
                             Notification.success({ content: '注册成功！', duration: 3 })
-                            this.props.history.replace('/home') // 跳转页面
                         }
                     }, ({ response }) => {
                         console.log({ response })

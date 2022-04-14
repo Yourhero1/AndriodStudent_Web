@@ -12,6 +12,9 @@ import TopNav from '../teacherNav/top_nav';
 import RatingEcharts from '../echarts/rating_echarts'
 import DescriptionEcharts from '../echarts/description_echarts'
 import NumberEcharts from '../echarts/number_echarts'
+import StudentMG from '../echarts/student_mg'
+import StudentTime from '../echarts/duration_echarts'
+
 const TeacherHome = (props) => {
     const { Sider, Content } = Layout;
     const [navValue, setNavValue] = useState('konwledge_description');
@@ -25,6 +28,8 @@ const TeacherHome = (props) => {
         case 'konwledge_description': Echarts = ()=><DescriptionEcharts  props={props} />;break;
         case 'konwledge_rating': Echarts =()=> <RatingEcharts  props={props}/>;break;
         case 'konwledge_number': Echarts = ()=> <NumberEcharts props={props} />;break;
+        case 'student_mg': Echarts = () => <StudentMG props={props} />;break;
+        case 'student_time': Echarts = () => <StudentTime props={props} />;break;
         default:Echarts = ()=><Empty/>;break;
     }
 

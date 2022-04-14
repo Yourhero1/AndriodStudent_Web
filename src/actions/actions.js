@@ -77,3 +77,24 @@ export const handleNav = value => dispatch => {
 export const getNavNumber = () => dispatch =>{
     return axios.get('api/nav/getNav')
 }
+
+// 获取学生信息列表
+export const getStudentList = () => dispatch =>{
+    return axios.get('api/user');
+}
+
+// 删除学生信息
+export const deleteStudent = username => dispatch =>{
+    return axios.get(`api/user/${username}`)
+}
+
+// 提交页面浏览时长
+export const handleDuration = duration  =>{
+    console.log('测试数据问题1')
+    return axios.post('api/duration',duration);
+}
+
+// 获取页面浏览数据
+export const getDuration = () => dispatch =>{
+    return axios.get('api/duration/getDuration');
+}

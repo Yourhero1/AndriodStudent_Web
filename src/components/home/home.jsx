@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {Layout} from '@douyinfe/semi-ui';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux'
@@ -10,12 +10,17 @@ import LeftNav from '../nav/left-nav';
 import TopNav from '../nav/top-nav';
 import Feedback from '../feedback/feedback'
 
+import {reportData} from '../../constants/reportData'
+
 import DescribeTechnology from '../content/describe_technology';
 import DescribeFeature from '../content/describe_feature';
 import AndroidEnv from '../content/android_env';
 import FlutterEnv from '../content/flutter_env';
 //import PageContent from './PageContent'
 const Home = (props) => {
+    const { auth } = store.getState();
+    const { user } = auth;
+    console.log('user',user)
     const { Header, Footer, Sider, Content } = Layout;
     const [navValue, setNavValue] = useState('describe_technology');
     const handleState = (value) => {
@@ -23,6 +28,11 @@ const Home = (props) => {
         setNavValue(value);
     }
     
+    // 页面曝光事件监听
+    useEffect(()=>{
+        reportData(user.username)
+    },[])
+
     let PageContent = <DescribeTechnology/>;
     switch (navValue) {
         case 'describe_technology': PageContent = ()=><DescribeTechnology/>;break;
